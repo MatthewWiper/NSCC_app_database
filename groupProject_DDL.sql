@@ -17,6 +17,7 @@ DROP TABLE nscc_Payment_Cheque;
 DROP TABLE nscc_Payment_Credit_Card;
 DROP TABLE nscc_Credit_Card_Company;
 DROP TABLE nscc_Campus;
+
 CREATE TABLE nscc_Applicant
 (
 Applicant_ID integer PRIMARY KEY,
@@ -54,11 +55,13 @@ Has_Disability integer,
 FirstLanguage_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Language(Language_ID),
 FirstLanguage_Other varchar(50)
 );
+
 CREATE TABLE nscc_School_Type
 (
 School_Type_ID integer NOT NULL PRIMARY KEY,
 Type_Name varchar(50) NOT NULL
 );
+
 CREATE TABLE nscc_Education
 (
 Education_ID integer NOT NULL PRIMARY KEY,
@@ -68,39 +71,46 @@ LocationAddress varchar(50),
 School_Type_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_School_Type(School_Type_ID),
 Applicant_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Applicant(Applicant_ID)
 );
+
 CREATE TABLE nscc_Language
 (
 Language_ID integer NOT NULL PRIMARY KEY,
 Language_Name varchar(50) NOT NULL
 );
+
 CREATE TABLE nscc_Citizenship
 (
 Citizenship_ID integer NOT NULL PRIMARY KEY,
 Description varchar(100) NOT NULL
 );
+
 CREATE TABLE nscc_Phone
 (
 Phone_ID integer NOT NULL PRIMARY KEY,
 Phone_Number varchar(20) NOT NULL,
 Is_Primary char(1) NOT NULL
 );
+
 CREATE TABLE nscc_Province_State
 (
 Province_State_Code char(2) NOT NULL PRIMARY KEY,
 Country_Code char(2) NOT NULL,
 Province_State_Name varchar(50) NOT NULL
 );
+
 CREATE TABLE nscc_Country
 (
 Country_Code char(2) NOT NULL PRIMARY KEY,
 Country_Name varchar(50) NOT NULL
 );
+
 CREATE TABLE nscc_Program
 (
 Program_ID integer NOT NULL PRIMARY KEY,
 Program_Name varchar(100) NOT NULL,
 Active integer NOT NULL
 );
+
 CREATE TABLE nscc_Application
 (
 Application_ID integer NOT NULL PRIMARY KEY,
@@ -109,11 +119,13 @@ Application_Fee number(7,2),
 Paid integer NOT NULL,
 Applicant_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Applicant(Applicant_ID)
 );
+
 CREATE TABLE nscc_Payment_Money_Order
 (
 Payment_ID integer NOT NULL,
 Money_Order_Number varchar(20) NOT NULL
 );
+
 CREATE TABLE nscc_Payment_Cheque
 (
 Payment_ID integer NOT NULL,
@@ -122,11 +134,13 @@ Transit_Number varchar(20) NOT NULL,
 Financial_Institution varchar(20) NOT NULL,
 Account_Number varchar(20) NOT NULL
 );
+
 CREATE TABLE nscc_Campus
 (
 Campus_ID integer NOT NULL PRIMARY KEY,
 Campus_Name varchar(50) NOT NULL
 );
+
 CREATE TABLE nscc_Payment
 (
 Payment_ID integer NOT NULL PRIMARY KEY,
@@ -134,6 +148,7 @@ Application_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Application(Applicat
 Payment_Date date NOT NULL,
 Amount number(7,2) NOT NULL
 );
+
 CREATE TABLE nscc_Program_Choice
 (
 Preference integer NOT NULL,
@@ -142,15 +157,18 @@ Application_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Application(Applicat
 Program_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Program(Program_ID),
 Campus_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Capmus(Campus_ID)
 );
+
 CREATE TABLE nscc_Campus_Program(
 Program_ID integer NOT NULL,
 Campus_ID integer NOT NULL
 );
+
 CREATE TABLE nscc_Credit_Card_Company
 (
 CC_Company_ID integer NOT NULL PRIMARY KEY,
 Company_Name varchar(20) NOT NULL FOREIGN KEY REFERENCES()
 );
+
 CREATE TABLE nscc_Payment_Credit_Card
 (
 Payment_ID integer NOT NULL,
