@@ -53,6 +53,11 @@ Has_Disability integer,
 FirstLanguage_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Language(Language_ID),
 FirstLanguage_Other varchar(50)
 );
+CREATE TABLE nscc_School_Type
+{
+School_Type_ID integer NOT NULL PRIMARY KEY,
+Type_Name varchar(50) NOT NULL
+};
 CREATE TABLE nscc_Education
 (
 Education_ID integer NOT NULL PRIMARY KEY,
@@ -61,10 +66,6 @@ Date_Completed date,
 LocationAddress varchar(50),
 School_Type_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_School_Type(School_Type_ID),
 Applicant_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Applicant(Applicant_ID)
-);
-CREATE TABLE nscc_School_Type(
-School_Type_ID integer NOT NULL PRIMARY KEY,
-Type_Name varchar(50) NOT NULL
 );
 CREATE TABLE nscc_Language(
 Language_ID integer NOT NULL PRIMARY KEY,
@@ -98,7 +99,7 @@ Application_ID integer NOT NULL PRIMARY KEY,
 Submit_Date date NOT NULL,
 Application_Fee number(7,2),
 Paid integer NOT NULL,
-Applicant_ID integer NOT NULL FOREIGN KEY REFERENCES()
+Applicant_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Applicant(Applicant_ID)
 );
 CREATE TABLE nscc_Payment_Money_Order(
 Payment_ID integer NOT NULL,
@@ -111,26 +112,26 @@ Transit_Number varchar(20) NOT NULL,
 Financial_Institution varchar(20) NOT NULL,
 Account_Number varchar(20) NOT NULL
 );
+CREATE TABLE nscc_Campus(
+Campus_ID integer NOT NULL PRIMARY KEY,
+Campus_Name varchar(50) NOT NULL
+);
 CREATE TABLE nscc_Payment(
 Payment_ID integer NOT NULL PRIMARY KEY,
-Application_ID integer NOT NULL FOREIGN KEY REFERENCES(),
+Application_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Application(Application_ID),
 Payment_Date date NOT NULL,
 Amount number(7,2) NOT NULL
 );
 CREATE TABLE nscc_Program_Choice(
 Preference integer NOT NULL,
 Program_Choice_ID integer NOT NULL PRIMARY KEY,
-Application_ID integer NOT NULL FOREIGN KEY REFERENCES(),
-Program_ID integer NOT NULL FOREIGN KEY REFERENCES(),
-Campus_ID integer NOT NULL FOREIGN KEY REFERENCES()
+Application_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Application(Application_ID),
+Program_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Program(Program_ID),
+Campus_ID integer NOT NULL FOREIGN KEY REFERENCES nscc_Capmus(Campus_ID)
 );
 CREATE TABLE nscc_Campus_Program(
 Program_ID integer NOT NULL,
 Campus_ID integer NOT NULL
-);
-CREATE TABLE nscc_Campus(
-Campus_ID integer NOT NULL PRIMARY KEY,
-Campus_Name varchar(50) NOT NULL
 );
 CREATE TABLE nscc_Credit_Card_Company(
 CC_Company_ID integer NOT NULL PRIMARY KEY,
